@@ -97,6 +97,17 @@ function padErrorMessage(err) {
   return "Não foi possível concluir. Verifique os dados e tente novamente.";
 }
 
+function formatDateTimeBR(ts) {
+  try {
+    if (!ts) return "—";
+    const d = typeof ts.toDate === "function" ? ts.toDate() : new Date(ts);
+    if (!(d instanceof Date) || Number.isNaN(d.getTime())) return "—";
+    return d.toLocaleString("pt-BR");
+  } catch {
+    return "—";
+  }
+}
+
 // ============================
 // LOGIN
 // ============================
@@ -131,6 +142,192 @@ if (loginForm) {
     } catch (error) {
       errorEl.textContent = padErrorMessage(error);
     }
+  });
+}
+
+// ============================
+// PEDIDOS (PAGOS) - NOVO
+// ============================
+
+const isOrdersPage = window.location.pathname.includes("pedidos.html");
+
+if (isOrdersPage) {
+  const PAGE_SIZE = 10;
+
+  const panelError = document.getElementById("panel-error");
+
+  const tbody = document.getElementById("orders-tbody");
+  const emptyState = document.getElementById("orders-empty");
+  const tableSubtitle = document.getElementById("table-subtitle");
+
+  const searchInput = document.getElementById("search-input");
+
+  const btnLogout = document.getElementById("logout");
+
+  // paginação UI
+  const btnPrev = document.getElementById("btn-prev");
+  const btnNext = document.getElementById("btn-next");
+  const pageIndicator = document.getElementById("page-indicator");
+
+  let ordersUnsub = null;
+
+  let allOrders = [];
+  let filteredOrders = [];
+  let currentPage = 1;
+
+  function setPanelError(msg) {
+    if (!panelError) return;
+    panelError.textContent = msg || "";
+  }
+
+  function setPaginationUI(totalPages) {
+    if (pageIndicator) pageIndicator.textContent = `Página ${currentPage}`;
+    if (btnPrev) btnPrev.disabled = currentPage <= 1;
+    if (btnNext) btnNext.disabled = currentPage >= totalPages;
+  }
+
+  function renderRows(list) {
+    if (!tbody) return;
+
+    tbody.innerHTML = "";
+
+    if (!list.length) {
+      if (emptyState) emptyState.hidden = false;
+      return;
+    }
+
+    if (emptyState) emptyState.hidden = true;
+
+    const frag = document.createDocumentFragment();
+
+    for (const o of list) {
+      const tr = document.createElement("tr");
+
+      const nameTd = document.createElement("td");
+      nameTd.textContent = o.giverName || "—";
+
+      const giftTd = document.createElement("td");
+      giftTd.textContent = o.title || "—";
+
+      const priceTd = document.createElement("td");
+      priceTd.textContent = formatBRLFromCents(o.priceCents);
+
+      const dateTd = document.createElement("td");
+      dateTd.textContent = formatDateTimeBR(o.paidAt);
+
+      tr.append(nameTd, giftTd, priceTd, dateTd);
+      frag.appendChild(tr);
+    }
+
+    tbody.appendChild(frag);
+  }
+
+  function renderPage() {
+    const total = filteredOrders.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    const pageItems = filteredOrders.slice(start, end);
+
+    if (tableSubtitle) tableSubtitle.textContent = `${total} item(ns)`;
+
+    renderRows(pageItems);
+    setPaginationUI(totalPages);
+  }
+
+  function applyFilter(term) {
+    const t = (term || "").trim().toLowerCase();
+
+    if (!t) {
+      filteredOrders = [...allOrders];
+    } else {
+      filteredOrders = allOrders.filter((o) => {
+        const name = String(o.giverName || "").toLowerCase();
+        return name.includes(t);
+      });
+    }
+
+    currentPage = 1;
+    renderPage();
+  }
+
+  function subscribePaidOrders() {
+    if (typeof ordersUnsub === "function") {
+      ordersUnsub();
+      ordersUnsub = null;
+    }
+
+    setPanelError("");
+
+    // Pedidos pagos: em tempo real
+    // Obs: pode exigir índice composto (status + paidAt), igual às métricas.
+    const qPaid = query(
+      collection(db, "orders"),
+      where("status", "==", "paid"),
+      orderBy("paidAt", "desc"),
+      limit(500)
+    );
+
+    ordersUnsub = onSnapshot(
+      qPaid,
+      (snap) => {
+        allOrders = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        applyFilter(searchInput?.value || "");
+      },
+      (err) => {
+        console.error("orders snapshot failed:", err);
+        setPanelError("Não foi possível carregar os pedidos pagos.");
+      }
+    );
+  }
+
+  // Search (debounce simples)
+  let searchTimer = null;
+  searchInput?.addEventListener("input", (e) => {
+    const value = e.target.value;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => applyFilter(value), 160);
+  });
+
+  // Paginação
+  btnNext?.addEventListener("click", () => {
+    const totalPages = Math.max(1, Math.ceil(filteredOrders.length / PAGE_SIZE));
+    if (currentPage >= totalPages) return;
+    currentPage += 1;
+    renderPage();
+  });
+
+  btnPrev?.addEventListener("click", () => {
+    if (currentPage <= 1) return;
+    currentPage -= 1;
+    renderPage();
+  });
+
+  // Logout
+  btnLogout?.addEventListener("click", async () => {
+    if (typeof ordersUnsub === "function") ordersUnsub();
+    await signOut(auth);
+    window.location.href = "./login.html";
+  });
+
+  // Guard
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "./login.html";
+      return;
+    }
+
+    const email = user.email || "";
+    if (!isAdminEmail(email)) {
+      await signOut(auth);
+      window.location.href = "./login.html";
+      return;
+    }
+
+    subscribePaidOrders();
   });
 }
 

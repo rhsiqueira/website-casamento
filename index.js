@@ -1,3 +1,5 @@
+// C:\Users\sique\OneDrive\Área de Trabalho\gr\index.js
+
 // =========================
 // MENU MOBILE (HAMBÚRGUER)
 // =========================
@@ -107,16 +109,6 @@ setInterval(updateCountdown, 1000);
 // =====================================================
 // PRESENTES - PUXAR DO FIRESTORE + ORDENAR + VER MAIS
 // =====================================================
-//
-// IMPORTANTE:
-// Para este trecho funcionar, o index.js precisa ser carregado como MODULE.
-// No index.html, troque:
-//   <script src="./index.js" defer></script>
-// por:
-//   <script type="module" src="./index.js"></script>
-//
-// Se você não trocar, o "import ..." abaixo não funciona.
-// =====================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
@@ -148,12 +140,27 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ============================
-// ELEMENTOS DA UI
+// ELEMENTOS DA UI (PRESENTES)
 // ============================
 
 const presentesGrid = document.getElementById("presentes-grid");
 const presentesMoreBtn = document.getElementById("presentes-more");
 const presentesSort = document.getElementById("presentes-sort");
+
+// ============================
+// MODAL - PRESENTEAR (novo)
+// ============================
+
+const giftModalOverlay = document.getElementById("gift-modal-overlay");
+const giftModal = document.getElementById("gift-modal");
+const giftModalClose = document.getElementById("gift-modal-close");
+const giftModalCancel = document.getElementById("gift-modal-cancel");
+const giftModalForm = document.getElementById("gift-modal-form");
+const giftGiverNameInput = document.getElementById("gift-giver-name");
+const giftModalError = document.getElementById("gift-modal-error");
+
+let selectedProductId = null;
+let selectedGiftButton = null;
 
 // ============================
 // ENDPOINT BACKEND (Cloud Function)
@@ -162,7 +169,7 @@ const presentesSort = document.getElementById("presentes-sort");
 const CREATE_PREFERENCE_URL = "https://createpreference-flf5exmuxa-uc.a.run.app";
 
 // ============================
-// ESTADO
+// ESTADO (LISTAGEM)
 // ============================
 
 // ✅ conforme definido:
@@ -219,6 +226,178 @@ function setMoreEnabled(enabled) {
   presentesMoreBtn.style.cursor = enabled ? "pointer" : "not-allowed";
 }
 
+// ============================
+// MODAL HELPERS
+// ============================
+
+function openGiftModal({ productId, triggerBtn }) {
+  if (!giftModal || !giftModalOverlay || !giftGiverNameInput) return;
+
+  selectedProductId = String(productId || "");
+  selectedGiftButton = triggerBtn || null;
+
+  if (giftModalError) giftModalError.textContent = "";
+
+  giftModalOverlay.hidden = false;
+  giftModalOverlay.setAttribute("aria-hidden", "false");
+
+  giftModal.hidden = false;
+  giftModal.setAttribute("aria-hidden", "false");
+
+  setTimeout(() => {
+    giftGiverNameInput.focus();
+  }, 40);
+}
+
+function closeGiftModal() {
+  if (!giftModal || !giftModalOverlay) return;
+
+  if (giftModalError) giftModalError.textContent = "";
+
+  giftModal.hidden = true;
+  giftModal.setAttribute("aria-hidden", "true");
+
+  giftModalOverlay.hidden = true;
+  giftModalOverlay.setAttribute("aria-hidden", "true");
+
+  selectedProductId = null;
+  selectedGiftButton = null;
+
+  if (giftGiverNameInput) giftGiverNameInput.value = "";
+}
+
+function setGiftModalError(msg) {
+  if (!giftModalError) return;
+  giftModalError.textContent = msg || "";
+}
+
+function sanitizeGiverName(name) {
+  const clean = String(name ?? "").trim();
+  if (!clean) return "";
+  return clean.slice(0, 120);
+}
+
+// Eventos de fechar modal
+giftModalClose?.addEventListener("click", closeGiftModal);
+giftModalCancel?.addEventListener("click", closeGiftModal);
+giftModalOverlay?.addEventListener("click", closeGiftModal);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    // fecha o menu (se estiver aberto) e também o modal (se estiver aberto)
+    closeMenu();
+
+    if (giftModal && !giftModal.hidden) {
+      closeGiftModal();
+    }
+  }
+});
+
+// Submit do modal (continuar)
+giftModalForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const giverName = sanitizeGiverName(giftGiverNameInput?.value || "");
+
+  if (!giverName) {
+    setGiftModalError("Informe seu nome para continuar.");
+    giftGiverNameInput?.focus();
+    return;
+  }
+
+  if (!selectedProductId) {
+    setGiftModalError("Não foi possível identificar o presente. Tente novamente.");
+    return;
+  }
+
+  // feedback no botão original (se existir)
+  const btn = selectedGiftButton;
+  const originalText = btn?.textContent || "Presentear";
+
+  try {
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Redirecionando...";
+    }
+
+    // trava os botões do modal
+    const confirmBtn = document.getElementById("gift-modal-confirm");
+    if (confirmBtn) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Aguarde...";
+    }
+    if (giftModalCancel) giftModalCancel.disabled = true;
+    if (giftModalClose) giftModalClose.disabled = true;
+
+    const resp = await fetch(CREATE_PREFERENCE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId: selectedProductId, giverName })
+    });
+
+    const data = await resp.json().catch(() => ({}));
+
+    if (!resp.ok) {
+      // mantém modal aberto para correção/novo submit
+      setGiftModalError(data?.error || "Erro ao iniciar pagamento.");
+      if (confirmBtn) {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = "Continuar";
+      }
+      if (giftModalCancel) giftModalCancel.disabled = false;
+      if (giftModalClose) giftModalClose.disabled = false;
+
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+      return;
+    }
+
+    if (!data?.init_point) {
+      setGiftModalError("Checkout não retornou o link de pagamento (init_point).");
+      if (confirmBtn) {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = "Continuar";
+      }
+      if (giftModalCancel) giftModalCancel.disabled = false;
+      if (giftModalClose) giftModalClose.disabled = false;
+
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+      return;
+    }
+
+    // fecha modal antes de redirecionar (UX)
+    closeGiftModal();
+
+    // Redireciona na mesma aba (mais simples e mais confiável no mobile)
+    window.location.href = data.init_point;
+  } catch (err) {
+    console.error(err);
+    setGiftModalError("Erro inesperado ao iniciar pagamento.");
+
+    const confirmBtn = document.getElementById("gift-modal-confirm");
+    if (confirmBtn) {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "Continuar";
+    }
+    if (giftModalCancel) giftModalCancel.disabled = false;
+    if (giftModalClose) giftModalClose.disabled = false;
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  }
+});
+
+// ============================
+// CARDS
+// ============================
+
 function createCard(product) {
   const article = document.createElement("article");
   article.className = "presente-card";
@@ -250,44 +429,9 @@ function createCard(product) {
   btn.type = "button";
   btn.textContent = "Presentear";
 
-  // ✅ ÚNICA MUDANÇA NECESSÁRIA: chamar o backend e redirecionar pro MP
-  btn.addEventListener("click", async () => {
-    const originalText = btn.textContent;
-
-    try {
-      btn.disabled = true;
-      btn.textContent = "Redirecionando...";
-
-      const resp = await fetch(CREATE_PREFERENCE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: product.id })
-      });
-
-      const data = await resp.json().catch(() => ({}));
-
-      if (!resp.ok) {
-        alert(data?.error || "Erro ao iniciar pagamento");
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-
-      if (!data?.init_point) {
-        alert("Checkout não retornou o link de pagamento (init_point).");
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-
-      // Redireciona na mesma aba (mais simples e mais confiável no mobile)
-      window.location.href = data.init_point;
-    } catch (err) {
-      console.error(err);
-      alert("Erro inesperado ao iniciar pagamento.");
-      btn.disabled = false;
-      btn.textContent = originalText;
-    }
+  // ✅ agora: abre modal para coletar nome antes de chamar backend
+  btn.addEventListener("click", () => {
+    openGiftModal({ productId: product.id, triggerBtn: btn });
   });
 
   bodyDiv.append(title, price, btn);

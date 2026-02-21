@@ -21,7 +21,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Peddana&family=Parisienne&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Peddana&family=Parisienne&family=Playfair+Display:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
 </head>
 
@@ -321,7 +322,39 @@
         <button id="presentes-more" class="presentes-more" type="button">VER MAIS</button>
     </section>
 
-<script type="module" src="./index.js"></script>
+    <!-- MODAL (Presentear) -->
+    <div id="gift-modal-overlay" class="gift-modal-overlay" hidden></div>
+
+    <div id="gift-modal" class="gift-modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="gift-modal-card" role="document" aria-label="Quem está presenteando?">
+            <button id="gift-modal-close" class="gift-modal-close" type="button" aria-label="Fechar">
+                ×
+            </button>
+
+            <h3 class="gift-modal-title">Quem está presenteando?</h3>
+
+            <p class="gift-modal-subtitle">Informe seu nome para continuar.</p>
+
+            <form id="gift-modal-form" class="gift-modal-form" autocomplete="off">
+                <label class="gift-modal-label" for="gift-giver-name">Seu nome</label>
+                <input id="gift-giver-name" class="gift-modal-input" type="text" name="giverName"
+                    placeholder="Ex: Maria Silva" required maxlength="120" />
+
+                <p id="gift-modal-error" class="gift-modal-error" aria-live="polite"></p>
+
+                <div class="gift-modal-actions">
+                    <button id="gift-modal-cancel" class="gift-modal-btn gift-modal-btn-ghost" type="button">
+                        Cancelar
+                    </button>
+                    <button id="gift-modal-confirm" class="gift-modal-btn gift-modal-btn-primary" type="submit">
+                        Continuar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="./index.js"></script>
 </body>
 
 </html>

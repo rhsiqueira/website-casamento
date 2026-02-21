@@ -426,6 +426,162 @@
 }
 
 /* =========================
+   MODAL - PRESENTEAR
+========================= */
+
+.gift-modal-overlay[hidden],
+.gift-modal[hidden] {
+    display: none;
+}
+
+.gift-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9998;
+}
+
+.gift-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 9999;
+}
+
+.gift-modal-card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.20);
+    padding: 22px 20px 18px;
+    position: relative;
+}
+
+.gift-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(20, 20, 20, 0.22);
+    background: transparent;
+    color: #141414;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gift-modal-close:hover {
+    background: #141414;
+    color: #ffffff;
+}
+
+.gift-modal-title {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 18px;
+    color: #141414;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.gift-modal-subtitle {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 14px;
+    color: #434343;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.gift-modal-form {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gift-modal-label {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 14px;
+    color: #141414;
+}
+
+.gift-modal-input {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid rgba(20, 20, 20, 0.28);
+    padding: 0 12px;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 14px;
+    color: #141414;
+    background: #ffffff;
+    outline: none;
+}
+
+.gift-modal-input:focus {
+    border-color: #FF0080;
+    box-shadow: 0 0 0 3px rgba(255, 0, 128, 0.18);
+}
+
+.gift-modal-error {
+    min-height: 18px;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 13px;
+    color: #d10000;
+    text-align: center;
+}
+
+.gift-modal-actions {
+    margin-top: 6px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.gift-modal-btn {
+    height: 40px;
+    border-radius: 10px;
+    padding: 0 16px;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gift-modal-btn-ghost {
+    background: transparent;
+    border: 1px solid #434343;
+    color: #434343;
+}
+
+.gift-modal-btn-ghost:hover {
+    background: #434343;
+    color: #ffffff;
+}
+
+.gift-modal-btn-primary {
+    background: #141414;
+    border: 1px solid #141414;
+    color: #ffffff;
+}
+
+.gift-modal-btn-primary:hover {
+    opacity: 0.92;
+}
+
+/* =========================
    MOBILE RESPONSIVO
 ========================= */
 
@@ -559,6 +715,27 @@
   .dress-code-image {
     width: 90%;
     height: auto;
+  }
+
+  /* ================= MODAL - PRESENTEAR (MOBILE) ================= */
+
+  .gift-modal-card {
+    max-width: 360px;
+    padding: 20px 16px 16px;
+    border-radius: 14px;
+  }
+
+  .gift-modal-title {
+    font-size: 17px;
+  }
+
+  .gift-modal-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gift-modal-btn {
+    width: 100%;
   }
 
 }

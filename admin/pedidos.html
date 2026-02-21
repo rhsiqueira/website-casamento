@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Pedidos</title>
+
+    <link rel="stylesheet" href="./estilo/pedidos.css" />
+
+    <!-- Google Fonts (mesmas do site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Peddana&family=Parisienne&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <main class="panel">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" aria-label="Menu lateral">
+            <div class="sidebar-brand">G | R</div>
+
+            <nav class="sidebar-nav" aria-label="Navegação do painel">
+                <a class="sidebar-link" href="./produtos.html">Produtos</a>
+                <a class="sidebar-link is-active" href="./pedidos.html">Pedidos</a>
+                <a class="sidebar-link" href="../index.html#inicio" target="_blank" rel="noopener">Abrir site</a>
+            </nav>
+        </aside>
+
+        <!-- CONTENT -->
+        <section class="content" aria-label="Conteúdo do painel">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="topbar-title">Pedidos (pagos)</h1>
+                </div>
+
+                <div class="topbar-center">
+                    <label class="search" aria-label="Buscar por nome">
+                        <input id="search-input" class="search-input" type="text"
+                            placeholder="Buscar por nome do presenteador..." />
+                    </label>
+                </div>
+
+                <div class="topbar-right">
+                    <button id="logout" class="btn btn-ghost" type="button">Sair</button>
+                </div>
+            </header>
+
+            <section class="table-wrap" aria-label="Lista de pedidos pagos">
+                <div class="table-head">
+                    <h2 class="table-title">Pedidos pagos</h2>
+                    <p class="table-subtitle" id="table-subtitle">0 itens</p>
+                </div>
+
+                <div class="table-scroll">
+                    <table class="table" aria-label="Tabela de pedidos">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Presente</th>
+                                <th>Valor</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody">
+                            <!-- preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" aria-label="Paginação">
+                    <button id="btn-prev" class="btn btn-ghost" type="button" disabled>Anterior</button>
+                    <span id="page-indicator" class="page-indicator">Página 1</span>
+                    <button id="btn-next" class="btn btn-ghost" type="button" disabled>Próxima</button>
+                </div>
+
+                <p id="orders-empty" class="empty" hidden>Nenhum pedido pago ainda.</p>
+            </section>
+
+            <p id="panel-error" class="panel-error" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <script type="module" src="./admin.js"></script>
+</body>
+
+</html>
