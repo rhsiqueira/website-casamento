@@ -1,0 +1,43 @@
+<section class="presentes" id="presentes" aria-label="Sessão de presentes">
+  <div class="presentes-header">
+    
+    <!-- Filtro -->
+    <div class="presentes-filter">
+      <label class="presentes-filter-label" for="presentes-sort">
+        Ordenar:
+      </label>
+
+      <select id="presentes-sort" class="presentes-filter-select">
+        <option value="cheap" selected>Mais baratos</option>
+        <option value="expensive">Mais caros</option>
+        <option value="newest">Mais recentes</option>
+        <option value="oldest">Mais antigos</option>
+      </select>
+    </div>
+
+    <!-- Título central -->
+    <h2 class="presentes-title">Presentes</h2>
+
+    <!-- Espaçador para manter título centralizado -->
+    <div class="presentes-header-spacer" aria-hidden="true"></div>
+  </div>
+
+  <!-- GRID DINÂMICO -->
+  <!-- O JS (index.js) é responsável por criar e inserir os cards aqui -->
+  <div
+    id="presentes-grid"
+    class="presentes-grid"
+    aria-label="Lista de presentes"
+  >
+    <!-- Cards serão inseridos dinamicamente via Firestore -->
+  </div>
+
+  <!-- BOTÃO VER MAIS -->
+  <button
+    id="presentes-more"
+    class="presentes-more"
+    type="button"
+  >
+    VER MAIS
+  </button>
+</section>

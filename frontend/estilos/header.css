@@ -1,0 +1,188 @@
+/* C:\Users\sique\OneDrive\Área de Trabalho\gr\frontend\estilos\header.css */
+
+/* =========================
+   HEADER / NAV
+   (Desktop: G|R centralizado de verdade com Grid)
+========================= */
+
+.site-header {
+    width: 100%;
+}
+
+.nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    /* esquerda | centro | direita */
+    align-items: anchor-center;
+    padding: 16px 150px;
+}
+
+/* Listas desktop */
+.nav-list {
+    display: flex;
+    align-items: normal;
+    gap: 24px;
+    /* distância pedida */
+}
+
+.nav-left {
+    justify-self: start;
+}
+
+.nav-right {
+    justify-self: end;
+}
+
+.nav-list a {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 20px;
+    /* pedida */
+    color: #111;
+}
+
+/* Marca central */
+.nav-brand {
+    justify-self: center;
+    font-family: var(--font-classic);
+    /* Peddana */
+    font-weight: 400;
+    font-size: 64px;
+    /* pedida */
+    line-height: 1;
+    color: #111;
+}
+
+/* =========================
+   HAMBÚRGUER (mobile)
+========================= */
+
+.menu-btn {
+    display: none;
+    /* aparece só no mobile */
+    background: transparent;
+    border: 0;
+    padding: 8px;
+    cursor: pointer;
+    justify-self: start;
+}
+
+.menu-icon {
+    display: inline-block;
+    width: 26px;
+    height: 2px;
+    background: #111;
+    position: relative;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 26px;
+    height: 2px;
+    background: #111;
+}
+
+.menu-icon::before {
+    top: -8px;
+}
+
+.menu-icon::after {
+    top: 8px;
+}
+
+/* =========================
+   MOBILE MENU (DRAWER)
+========================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    transition: opacity 250ms ease;
+    z-index: 40;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: min(78vw, 340px);
+    background: #fff;
+    z-index: 50;
+
+    transform: translateX(-100%);
+    transition: transform 280ms ease;
+    will-change: transform;
+
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.close-btn {
+    align-self: flex-end;
+    background: transparent;
+    border: 0;
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    /* mesma distância */
+    padding-top: 8px;
+}
+
+.mobile-list a {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 20px;
+    color: #111;
+}
+
+/* Estado aberto (controlado via JS no <body>) */
+.is-open .mobile-menu {
+    transform: translateX(0);
+}
+
+.is-open .overlay {
+    opacity: 1;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+
+    .nav {
+        grid-template-columns: 48px 1fr 48px;
+        /* hambúrguer | centro | espaço */
+        padding: 12px 16px;
+    }
+
+    .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-brand {
+        justify-self: center;
+        font-size: 48px;
+        /* ajuste de mobile (evita estourar) */
+    }
+}

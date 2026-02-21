@@ -1,0 +1,426 @@
+/* =========================
+   VERSÍCULO
+========================= */
+
+.versiculo {
+    width: 414px;
+    margin: 6px auto 0;
+    text-align: center;
+}
+
+.versiculo-texto {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;
+    color: #434343;
+    line-height: 1.6;
+}
+
+.versiculo-referencia {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+
+    text-align: right;
+
+    position: relative;
+    right: -120px;
+    /* desloca para fora do bloco */
+}
+
+/* =========================
+   HERO HOME
+========================= */
+
+.hero {
+    position: relative;
+    width: 100%;
+    max-width: 1197px;
+    height: 798px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* imagem de fundo */
+.hero-background {
+    position: absolute;
+    inset: 0;
+    background: url("../../img/santuario.jpeg") center/cover no-repeat;
+    z-index: 1;
+    opacity: 17%;
+}
+
+/* conteúdo central */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-top: 180px;
+    /* ajuste visual superior */
+}
+
+/* Nome */
+.hero-title {
+    font-family: var(--font-script);
+    /* Parisienne */
+    font-weight: 400;
+    font-size: 64px;
+    color: #141414;
+}
+
+/* Data */
+.hero-date {
+    font-family: var(--font-primary);
+    /* Poppins */
+    font-weight: 400;
+    font-size: 20px;
+    color: #141414;
+}
+
+/* Faixa branca */
+.hero-strip {
+    position: absolute;
+    top: calc(120px + 64px + 16px + 20px + 137px);
+    left: 0;
+    width: 100%;
+    height: 113.67px;
+    background: #ffffff;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+/* conteúdo dentro da faixa */
+.hero-strip-content {
+    text-align: center;
+    width: 70%;
+}
+
+.hero-strip-content p {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;
+    color: #141414;
+}
+
+.hero-strip-content p+p {
+    margin-top: 12px;
+    /* 12px entre os textos */
+}
+
+/* =========================
+   DATA & LOCAL
+========================= */
+
+.data-local {
+    margin-top: 42px;
+    /* 42px abaixo da Home */
+    max-width: 1197px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Header da seção */
+.data-local-header {
+    text-align: center;
+}
+
+.data-local-title {
+    font-family: var(--font-primary);
+    /* Poppins */
+    font-weight: 400;
+    font-size: 24px;
+    color: #141414;
+}
+
+.data-local-date {
+    font-family: var(--font-title);
+    /* Playfair */
+    font-weight: 400;
+    font-size: 20px;
+    color: #141414;
+    margin-top: 6px;
+    /* 6px abaixo do título */
+}
+
+/* Grid principal */
+.data-local-grid {
+    margin-top: 42px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Blocos individuais */
+.evento {
+    width: 436px;
+}
+
+/* Título Cerimônia / Recepção */
+.evento-titulo {
+    font-family: var(--font-title);
+    /* Playfair */
+    font-weight: 500;
+    /* Medium real */
+    font-size: 24px;
+    color: #141414;
+}
+
+/* Informações */
+.evento-info {
+    margin-top: 6px;
+    /* 6px abaixo do título */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    /* 6px entre horário, local e endereço */
+}
+
+.evento-linha {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    /* medium conforme solicitado */
+    font-size: 16px;
+    color: #141414;
+}
+
+/* Mapa */
+.evento-mapa {
+    margin-top: 12px;
+    /* 12px abaixo do endereço */
+}
+
+.evento-mapa iframe {
+    width: 436px;
+    height: 328px;
+    border: 0;
+}
+
+.evento-linha {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 16px;
+    color: #141414;
+
+    white-space: nowrap;
+}
+
+/* =========================
+   CONTAGEM REGRESSIVA
+========================= */
+
+.countdown-section {
+    width: 100%;
+    height: 332px;
+    background: #FF0080;
+    margin-top: 64px;
+    /* 64px abaixo de Data & Local */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.countdown-title {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 36px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.countdown-grid {
+    display: flex;
+    gap: 24px;
+}
+
+.countdown-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
+    background: #FFFFFF;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.countdown-number {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 36px;
+    color: #141414;
+    line-height: 1;
+    text-align: center;
+}
+
+.countdown-label {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* =========================
+   SOBRE NÓS
+========================= */
+
+.sobre-nos {
+    position: relative;
+    margin-top: 42px; /* 42px abaixo da contagem regressiva */
+    padding: 0 0 80px;
+}
+
+.sobre-nos-titulo {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 24px;
+    color: #141414;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+/* Backgrounds laterais */
+.sobre-nos-bg {
+    position: absolute;
+    top: 0;
+    opacity: 0.3;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.sobre-nos-bg-gi {
+    left: 0;
+    width: 596px;
+    height: 895px;
+    object-fit: cover;
+}
+
+.sobre-nos-bg-rod {
+    right: 0;
+    width: 594px;
+    height: 891px;
+    object-fit: cover;
+}
+
+/* Card central */
+.sobre-nos-card {
+    position: relative;
+    z-index: 2;
+    width: 770px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    padding: 28px 32px;
+}
+
+/* Subtítulos */
+.sobre-nos-subtitulo {
+    font-family: var(--font-script); /* Parisienne */
+    font-weight: 400;
+    font-size: 32px;
+    color: #141414;
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* Texto */
+.sobre-nos-texto {
+    width: 706px;          /* largura exata do texto */
+    margin: 12px auto 0;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.sobre-nos-texto p + p {
+    margin-top: 12px; /* espaçamento natural entre parágrafos */
+}
+
+/* Separador (12px abaixo do texto) */
+.sobre-nos-separador {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.sobre-nos-traco {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1;
+    color: #141414;
+}
+
+.sobre-nos-coracao {
+    margin-top: 6px;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1;
+    color: #141414;
+}
+
+/* Espaço entre blocos */
+.sobre-nos-separador + .sobre-nos-subtitulo {
+    margin-top: 18px;
+}
+
+/* =========================
+   DRESS CODE
+========================= */
+
+.dress-code {
+    margin-top: 42px; /* 42px abaixo do Sobre Nós */
+    text-align: center;
+}
+
+.dress-code-title {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 24px;
+    color: #141414;
+}
+
+.dress-code-subtitle {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;
+    color: #141414;
+    margin-top: 6px; /* 6px abaixo do título */
+}
+
+.dress-code-text {
+    margin-top: 24px; /* 24px abaixo do subtítulo */
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;
+    color: #141414;
+}
+
+.dress-code-text p + p {
+    margin-top: 6px; /* 6px entre os parágrafos */
+}
+
+.dress-code-text strong {
+    font-weight: 600; /* destaque */
+}
+
+.dress-code-image {
+    display: block;
+    width: 602px;
+    height: 402px;
+    margin: 12px auto 0; /* 12px abaixo do texto */
+    object-fit: contain;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Login</title>
+
+    <link rel="stylesheet" href="./estilo/login.css" />
+
+    <!-- Google Fonts (mesmas do site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Peddana&family=Parisienne&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <main class="login-layout">
+        <!-- ESQUERDA -->
+        <section class="login-left" aria-label="Marca">
+            <div class="login-brand">G | R</div>
+        </section>
+
+        <!-- DIREITA -->
+        <section class="login-right" aria-label="Área de autenticação">
+            <div class="login-card">
+                <div class="login-card-header">
+                    <div class="login-card-brand">G | R</div>
+                    <h1 class="login-title">Login admin</h1>
+                </div>
+
+                <form id="login-form" class="login-form" autocomplete="on">
+                    <div class="field">
+                        <label class="label" for="email">E-mail</label>
+                        <div class="input-wrap">
+                            <input class="input" type="email" id="email" name="email" placeholder="seuemail@email.com"
+                                required />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="password">Senha</label>
+                        <div class="input-wrap">
+                            <input class="input" type="password" id="password" name="password"
+                                placeholder="Sua senha" required />
+                        </div>
+                    </div>
+
+                    <button class="btn" type="submit">Entrar</button>
+
+                    <p id="error-message" class="error" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="./admin.js"></script>
+</body>
+
+</html>

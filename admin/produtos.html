@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Produtos</title>
+
+    <link rel="stylesheet" href="./estilo/produtos.css" />
+
+    <!-- Google Fonts (mesmas do site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Peddana&family=Parisienne&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <main class="panel">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" aria-label="Menu lateral">
+            <div class="sidebar-brand">G | R</div>
+
+            <nav class="sidebar-nav" aria-label="Navegação do painel">
+                <a class="sidebar-link is-active" href="./produtos.html">Produtos</a>
+                <a class="sidebar-link is-disabled" href="#" aria-disabled="true" tabindex="-1">Pedidos (em breve)</a>
+                <a class="sidebar-link" href="../index.html#inicio" target="_blank" rel="noopener">Abrir site</a>
+            </nav>
+        </aside>
+
+        <!-- CONTENT -->
+        <section class="content" aria-label="Conteúdo do painel">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="topbar-title">Painel de Controle</h1>
+                </div>
+
+                <div class="topbar-center">
+                    <label class="search" aria-label="Buscar produto">
+                        <input id="search-input" class="search-input" type="text" placeholder="Buscar produto..." />
+                    </label>
+                </div>
+
+                <div class="topbar-right">
+                    <button id="btn-open-modal" class="btn btn-primary" type="button">Adicionar produto</button>
+                    <button id="logout" class="btn btn-ghost" type="button">Sair</button>
+                </div>
+            </header>
+
+            <section class="metrics" aria-label="Métricas">
+                <div class="metric-card">
+                    <div class="metric-value" id="metric-products">0</div>
+                    <div class="metric-label">PRODUTOS</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value" id="metric-sold">—</div>
+                    <div class="metric-label">VENDAS</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value" id="metric-revenue">—</div>
+                    <div class="metric-label">ARRECADADO</div>
+                </div>
+            </section>
+
+            <section class="table-wrap" aria-label="Lista de produtos">
+                <div class="table-head">
+                    <h2 class="table-title">Produtos cadastrados</h2>
+                    <p class="table-subtitle" id="table-subtitle">0 itens</p>
+                </div>
+
+                <div class="table-scroll">
+                    <table class="table" aria-label="Tabela de produtos">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Preço</th>
+                                <th>Estoque</th>
+                                <th>Status</th>
+                                <th class="th-actions">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody">
+                            <!-- preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" aria-label="Paginação">
+                    <button id="btn-prev" class="btn btn-ghost" type="button" disabled>Anterior</button>
+                    <span id="page-indicator" class="page-indicator">Página 1</span>
+                    <button id="btn-next" class="btn btn-ghost" type="button" disabled>Próxima</button>
+                </div>
+
+                <p id="products-empty" class="empty" hidden>Nenhum produto encontrado.</p>
+            </section>
+
+            <p id="panel-error" class="panel-error" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div id="modal-overlay" class="modal-overlay" hidden></div>
+
+    <div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">Adicionar produto</h3>
+                <button id="btn-close-modal" class="modal-close" type="button" aria-label="Fechar">×</button>
+            </div>
+
+            <form id="product-form" class="modal-form" autocomplete="off">
+                <input type="hidden" id="product-id" />
+
+                <div class="field">
+                    <label class="label" for="product-title">Nome do produto</label>
+                    <input id="product-title" class="input" type="text" placeholder="Ex: Jogo de panelas" required />
+                </div>
+
+                <div class="grid-2">
+                    <div class="field">
+                        <label class="label" for="product-price">Preço (R$)</label>
+                        <input id="product-price" class="input" type="number" step="0.01" min="0" placeholder="199.90"
+                            required />
+                        <small class="hint">Armazenaremos como <strong>priceCents</strong> (centavos).</small>
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="product-stock">Estoque</label>
+                        <input id="product-stock" class="input" type="number" step="1" min="0" placeholder="10"
+                            required />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="product-image">Imagem (URL) (opcional)</label>
+                    <input id="product-image" class="input" type="url" placeholder="https://..." />
+                </div>
+
+                <label class="checkbox">
+                    <input id="product-active" type="checkbox" checked />
+                    <span>Ativo</span>
+                </label>
+
+                <div class="modal-actions">
+                    <button id="btn-cancel-edit" class="btn btn-ghost" type="button" hidden>Cancelar edição</button>
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                </div>
+
+                <p id="modal-error" class="modal-error" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="./admin.js"></script>
+</body>
+
+</html>

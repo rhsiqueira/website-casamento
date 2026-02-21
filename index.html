@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giovanna & Rodrigo - Site do casamento</title>
+
+    <!-- Reset -->
+    <link rel="stylesheet" href="./frontend/estilos/reset.css" />
+
+    <!-- Card -->
+    <link rel="stylesheet" href="./frontend/estilos/card.css" />
+
+    <!-- Header -->
+    <link rel="stylesheet" href="./frontend/estilos/header.css" />
+
+    <!-- Main (conteúdo geral) -->
+    <link rel="stylesheet" href="./frontend/estilos/main.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Peddana&family=Parisienne&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <nav class="nav" aria-label="Navegação principal">
+
+            <button class="menu-btn" type="button" aria-label="Abrir menu" aria-controls="mobile-menu"
+                aria-expanded="false">
+                <span class="menu-icon" aria-hidden="true"></span>
+            </button>
+
+            <ul class="nav-list nav-left desktop-only">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#data-local">Data &amp; Local</a></li>
+                <li><a href="#sobre-nos">Sobre Nós</a></li>
+            </ul>
+
+            <a class="nav-brand" href="#inicio" aria-label="Voltar ao início">
+                G | R
+            </a>
+
+            <ul class="nav-list nav-right desktop-only">
+                <li><a href="#dress-code">Dress Code</a></li>
+                <li><a href="#presentes">Presentes</a></li>
+                <li><a href="#duvidas">Dúvidas</a></li>
+            </ul>
+
+        </nav>
+
+        <div class="overlay" hidden></div>
+
+        <aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+
+            <button class="close-btn" type="button" aria-label="Fechar menu">
+                ×
+            </button>
+
+            <ul class="mobile-list">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#data-local">Data &amp; Local</a></li>
+                <li><a href="#sobre-nos">Sobre Nós</a></li>
+                <li><a href="#dress-code">Dress Code</a></li>
+                <li><a href="#presentes">Presentes</a></li>
+                <li><a href="#duvidas">Dúvidas</a></li>
+            </ul>
+
+        </aside>
+
+    </header>
+
+    <div class="versiculo">
+        <p class="versiculo-texto">
+            "Assim, eles já não são dois, mas sim uma só carne.
+            Portanto, o que Deus uniu, ninguém separa."
+        </p>
+        <p class="versiculo-referencia">
+            Mateus 19:6
+        </p>
+    </div>
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-background"></div>
+
+        <div class="hero-content">
+
+            <h1 class="hero-title">
+                Giovanna e Rodrigo
+            </h1>
+
+            <p class="hero-date">
+                23 de maio de 2026
+            </p>
+
+            <div class="hero-strip">
+                <div class="hero-strip-content">
+                    <p>
+                        Criamos este espaço com carinho para compartilhar os detalhes do nosso grande dia.
+                    </p>
+                    <p>
+                        Estamos muito felizes em viver esse momento especial ao lado de quem amamos.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="data-local" class="data-local">
+        <div class="data-local-header">
+            <h2 class="data-local-title">Data &amp; Local</h2>
+            <p class="data-local-date">23 / 05 / 2026</p>
+        </div>
+
+        <div class="data-local-grid">
+            <!-- Cerimônia -->
+            <div class="evento">
+                <h3 class="evento-titulo">Cerimônia</h3>
+
+                <div class="evento-info">
+                    <p class="evento-linha"><span class="evento-label">Horário:</span> 17:30</p>
+                    <p class="evento-linha"><span class="evento-label">Local:</span> Santuário nossa senhora de Fátima
+                    </p>
+                    <p class="evento-linha"><span class="evento-label">Endereço:</span> Rua Darwin, 651 - Santo Amaro,
+                        São Paulo</p>
+                </div>
+
+                <div class="evento-mapa">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.667038645582!2d-46.69899282466708!3d-23.65209237873756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce505bb9eb679b%3A0xac16470e06d9cb85!2sRua%20Darwin%2C%20651%20-%20Santo%20Amaro%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004741-011!5e0!3m2!1spt-BR!2sbr!4v1771550400725!5m2!1spt-BR!2sbr"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <!-- Recepção -->
+            <div class="evento">
+                <h3 class="evento-titulo">Recepção</h3>
+
+                <div class="evento-info">
+                    <p class="evento-linha"><span class="evento-label">Horário:</span> 19:30</p>
+                    <p class="evento-linha"><span class="evento-label">Local:</span> Mansão Arabesque</p>
+                    <p class="evento-linha"><span class="evento-label">Endereço:</span> Av. Washington Luís, 3001 -
+                        Santo Amaro, São Paulo</p>
+                </div>
+
+                <div class="evento-mapa">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.67530441209!2d-46.6790417!3d-23.6517965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce507034c8062f%3A0x6975db28dbd36dc4!2sAv.%20Washington%20Lu%C3%ADs%2C%203001%20-%20Santo%20Amaro%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004660-000!5e0!3m2!1spt-BR!2sbr!4v1771550425257!5m2!1spt-BR!2sbr"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="countdown-section" aria-label="Contagem regressiva">
+        <h2 class="countdown-title">CONTAGEM REGRESSIVA</h2>
+
+        <div class="countdown-grid" role="group" aria-label="Tempo restante">
+            <div class="countdown-box">
+                <div class="countdown-number" id="cd-days">00</div>
+                <div class="countdown-label">DIAS</div>
+            </div>
+
+            <div class="countdown-box">
+                <div class="countdown-number" id="cd-hours">00</div>
+                <div class="countdown-label">HORAS</div>
+            </div>
+
+            <div class="countdown-box">
+                <div class="countdown-number" id="cd-minutes">00</div>
+                <div class="countdown-label">MINUTOS</div>
+            </div>
+
+            <div class="countdown-box">
+                <div class="countdown-number" id="cd-seconds">00</div>
+                <div class="countdown-label">SEGUNDOS</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre-nos" class="sobre-nos">
+        <h2 class="sobre-nos-titulo">Sobre Nós</h2>
+
+        <!-- backgrounds -->
+        <img class="sobre-nos-bg sobre-nos-bg-gi" src="./img/gi.png" alt="" aria-hidden="true">
+        <img class="sobre-nos-bg sobre-nos-bg-rod" src="./img/rod.png" alt="" aria-hidden="true">
+
+        <!-- card central -->
+        <div class="sobre-nos-card">
+            <!-- Bloco 1 -->
+            <h3 class="sobre-nos-subtitulo">Nosso primeiro encontro</h3>
+            <div class="sobre-nos-texto">
+                <p>
+                    Nossa história começou em 2014, na escola. Estávamos na mesma sala quando ele entrou no 9º ano como
+                    aluno novo. No meio de tantas novidades, ele chegou sem imaginar que ali começaria algo que mudaria
+                    nossas vidas.
+                </p>
+                <p>
+                    No início, era só amizade. Conversas tímidas, risadas discretas, aquela troca de olhares que ninguém
+                    entende direito… Mas foi em 2015 que nossa amizade realmente se firmou. Ficamos mais próximos, mais
+                    conectados, mais presentes um na vida do outro.
+                </p>
+                <p>
+                    E então, no dia 26 de março de 2015, aconteceu o nosso primeiro beijo. Um momento simples, mas que
+                    marcou o início de algo muito maior do que nós imaginávamos.
+                </p>
+            </div>
+
+            <div class="sobre-nos-separador" aria-hidden="true">
+                <div class="sobre-nos-traco">|</div>
+                <div class="sobre-nos-coracao">˗ˋˏ♡ˎˊ˗</div>
+            </div>
+
+            <!-- Bloco 2 -->
+            <h3 class="sobre-nos-subtitulo">Pedido de Namoro</h3>
+            <div class="sobre-nos-texto">
+                <p>
+                    Poucos dias depois, no dia 07 de abril, ainda na escola — o lugar onde tudo começou — vivemos mais
+                    um capítulo inesquecível.
+                </p>
+                <p>
+                    Foi simples. Não teve decoração, nem plateia, nem algo planejado. Mas teve o que realmente
+                    importava: sentimento.
+                </p>
+                <p>
+                    Saímos da sala de aula na mesma hora e, ali na escada da escola, aconteceu mais um beijo… e junto
+                    dele, o pedido de namoro. De surpresa. Natural. Verdadeiro.
+                </p>
+                <p>
+                    E foi ali, naquele cenário comum, que começou oficialmente a nossa história como namorados. O nosso
+                    primeiro “sim”.
+                </p>
+            </div>
+
+            <div class="sobre-nos-separador" aria-hidden="true">
+                <div class="sobre-nos-traco">|</div>
+                <div class="sobre-nos-coracao">˗ˋˏ♡ˎˊ˗</div>
+            </div>
+
+            <!-- Bloco 3 -->
+            <h3 class="sobre-nos-subtitulo">Pedido de Noivado</h3>
+            <div class="sobre-nos-texto">
+                <p>
+                    Os anos passaram. Crescemos juntos. Amadurecemos. Enfrentamos desafios, aprendemos, esperamos… e eu
+                    esperei muito por esse momento.
+                </p>
+                <p>
+                    Depois de alguns anos de namoro — e de muitos pedidos meus também 😅 — finalmente chegou o nosso tão
+                    especial dia 07.
+                </p>
+                <p>
+                    No dia 07 de julho de 2023, completando 8 anos e 3 meses juntos, veio o pedido de noivado. Nosso
+                    segundo “sim”. Um dia carregado de significado, porque o dia 07 sempre fez parte da nossa história.
+                </p>
+                <p>
+                    Depois de tanto tempo construindo uma base de amor, parceria e cumplicidade, decidimos dar mais um
+                    passo. Não era só um pedido… era a confirmação de que tudo que vivemos até ali valeu a pena.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="dress-code" class="dress-code">
+        <h2 class="dress-code-title">Dress Code</h2>
+        <p class="dress-code-subtitle">TRAJE SOCIAL COMPLETO</p>
+
+        <div class="dress-code-text">
+            <p>
+                <strong>Às mulheres,</strong> pedimos com carinho que <strong>evitem vestidos nas cores branco</strong>
+                ou <strong>off-white</strong>.
+            </p>
+            <p>
+                <strong>Aos homens,</strong> fiquem à vontade para escolher as cores que preferirem — <strong>apenas
+                    pedimos que evitem moletom</strong>.
+            </p>
+            <p>
+                <strong>Tênis também é bem-vindo</strong>, desde que esteja alinhado ao traje social.
+            </p>
+            <p>
+                O mais importante é que todos se sintam confortáveis, elegantes e prontos para celebrar conosco esse dia
+                tão especial!
+            </p>
+        </div>
+
+        <img class="dress-code-image" src="./img/dresscode.png"
+            alt="Referências de traje social completo para mulheres e homens">
+    </section>
+
+    <!-- PRESENTES -->
+    <section class="presentes" id="presentes" aria-label="Sessão de presentes">
+        <div class="presentes-header">
+            <div class="presentes-filter">
+                <label class="presentes-filter-label" for="presentes-sort">Ordenar:</label>
+                <select id="presentes-sort" class="presentes-filter-select">
+                    <option value="cheap" selected>Mais baratos</option>
+                    <option value="expensive">Mais caros</option>
+                    <option value="newest">Mais recentes</option>
+                    <option value="oldest">Mais antigos</option>
+                </select>
+            </div>
+
+            <h2 class="presentes-title">Presentes</h2>
+
+            <div class="presentes-header-spacer" aria-hidden="true"></div>
+        </div>
+
+        <div id="presentes-grid" class="presentes-grid" aria-label="Lista de presentes">
+            <!-- Cards serão preenchidos via JS -->
+        </div>
+
+        <button id="presentes-more" class="presentes-more" type="button">VER MAIS</button>
+    </section>
+
+<script type="module" src="./index.js"></script>
+</body>
+
+</html>
