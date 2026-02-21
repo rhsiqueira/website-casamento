@@ -178,3 +178,35 @@
   background: #434343;
   color: #ffffff;
 }
+
+/* =========================
+   MOBILE PRESENTES
+========================= */
+
+@media (max-width: 768px) {
+
+  .presentes-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .presentes-filter {
+    justify-self: center;
+  }
+
+  .presentes-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .presente-card {
+    width: 90%;
+    height: auto;
+  }
+
+  .presente-card-title {
+    width: 90%;
+  }
+
+}

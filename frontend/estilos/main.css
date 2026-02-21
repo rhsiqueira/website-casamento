@@ -424,3 +424,141 @@
     margin: 12px auto 0; /* 12px abaixo do texto */
     object-fit: contain;
 }
+
+/* =========================
+   MOBILE RESPONSIVO
+========================= */
+
+@media (max-width: 768px) {
+
+  /* ================= HERO ================= */
+
+  .hero {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  .hero-content {
+    padding-top: 100px;
+  }
+
+  .hero-title {
+    font-size: 40px;
+  }
+
+  .hero-strip {
+    position: relative;
+    top: auto;
+    height: auto;
+    padding: 16px 0;
+    margin-top: 24px;
+  }
+
+  .hero-strip-content {
+    width: 90%;
+  }
+
+  /* ================= VERSÍCULO ================= */
+
+  .versiculo {
+    width: 90%;
+  }
+
+  .versiculo-referencia {
+    right: 0;
+    text-align: center;
+  }
+
+  /* ================= DATA & LOCAL ================= */
+
+  .data-local-grid {
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .evento {
+    width: 90%;
+  }
+
+  .evento-info {
+    gap: 8px;
+  }
+
+  /* 🔥 Corrige estouro de endereço */
+  .evento-linha {
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+  }
+
+  .evento-mapa iframe {
+    width: 100%;
+    height: 240px;
+  }
+
+  /* ================= COUNTDOWN ================= */
+
+  .countdown-section {
+    height: auto;
+    padding: 32px 16px;
+  }
+
+  .countdown-title {
+    font-size: 22px;
+  }
+
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .countdown-box {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+  }
+
+  .countdown-number {
+    font-size: 20px;
+  }
+
+  .countdown-label {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+
+  /* ================= SOBRE NÓS ================= */
+
+  .sobre-nos-bg {
+    display: none;
+  }
+
+  .sobre-nos-card {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .sobre-nos-texto {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .sobre-nos-subtitulo {
+    font-size: 24px;
+  }
+
+  /* ================= DRESS CODE ================= */
+
+  .dress-code-text {
+    width: 90%;
+    margin: 24px auto 0;
+  }
+
+  .dress-code-image {
+    width: 90%;
+    height: auto;
+  }
+
+}
