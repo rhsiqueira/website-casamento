@@ -1,0 +1,63 @@
+<!-- C:\Users\sique\OneDrive\Área de Trabalho\gr\success.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento aprovado • Giovanna & Rodrigo</title>
+
+  <!-- Reset + fontes (mesmo padrão do site) -->
+  <link rel="stylesheet" href="./frontend/estilos/reset.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Peddana&family=Parisienne&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- CSS específico -->
+  <link rel="stylesheet" href="./frontend/estilos/sucess.css" />
+</head>
+
+<body>
+  <main class="status-page" aria-label="Pagamento aprovado">
+    <section class="card" role="status" aria-live="polite">
+      <div class="brand" aria-label="Marca">G | R</div>
+
+      <div class="icon" aria-hidden="true">✓</div>
+
+      <h1 class="title">Pagamento aprovado</h1>
+
+      <p class="subtitle">
+        Obrigado por participar deste dia tão especial 💖
+      </p>
+
+      <p class="hint">
+        Você será redirecionado(a) para a página inicial em <strong id="sec">5</strong> segundos.
+      </p>
+
+      <a class="btn" href="./index.html#presentes">Voltar agora</a>
+    </section>
+  </main>
+
+  <script>
+    // Marca para exibir mensagem de agradecimento na home (index.js pode ler depois)
+    try {
+      sessionStorage.setItem("gr_checkout_status", "success");
+    } catch { }
+
+    let s = 5;
+    const el = document.getElementById("sec");
+
+    const t = setInterval(() => {
+      s -= 1;
+      if (el) el.textContent = String(s);
+      if (s <= 0) {
+        clearInterval(t);
+        window.location.replace("./index.html");
+      }
+    }, 1000);
+  </script>
+</body>
+
+</html>
