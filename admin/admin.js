@@ -1,3 +1,5 @@
+// C:\Users\sique\OneDrive\Área de Trabalho\gr\admin\admin.js
+
 // ============================
 // FIREBASE IMPORT (CDN Modular)
 // ============================
@@ -199,6 +201,9 @@ if (isProductsPage) {
   // unsubscribe do listener atual
   let pageUnsub = null;
 
+  // unsubscribe do listener de métricas (vendas/receita)
+  let metricsUnsub = null;
+
   // garante estado inicial fechado
   overlay.hidden = true;
   modal.hidden = true;
@@ -222,6 +227,13 @@ if (isProductsPage) {
     }
   }
 
+  function unsubscribeMetrics() {
+    if (typeof metricsUnsub === "function") {
+      metricsUnsub();
+      metricsUnsub = null;
+    }
+  }
+
   function resetToPage1() {
     direction = "initial";
     currentPage = 1;
@@ -242,6 +254,46 @@ if (isProductsPage) {
     } catch {
       // se falhar, mantém o que estiver e não quebra UX
     }
+  }
+
+  function subscribeSalesMetrics() {
+    unsubscribeMetrics();
+
+    // estado inicial (enquanto carrega)
+    if (metricSold) metricSold.textContent = "0";
+    if (metricRevenue) metricRevenue.textContent = formatBRLFromCents(0);
+
+    // ✅ pedidos pagos (painel em tempo real)
+    // Obs: isso pode exigir índice composto (status + paidAt).
+    const qPaid = query(
+      collection(db, "orders"),
+      where("status", "==", "paid"),
+      orderBy("paidAt", "desc"),
+      limit(2000)
+    );
+
+    metricsUnsub = onSnapshot(
+      qPaid,
+      (snap) => {
+        let sold = 0;
+        let revenueCents = 0;
+
+        snap.forEach((docSnap) => {
+          const o = docSnap.data() || {};
+          sold += 1;
+          revenueCents += Number(o.priceCents || 0);
+        });
+
+        if (metricSold) metricSold.textContent = String(sold);
+        if (metricRevenue) metricRevenue.textContent = formatBRLFromCents(revenueCents);
+      },
+      (err) => {
+        console.error("metrics snapshot failed:", err);
+        if (metricSold) metricSold.textContent = "—";
+        if (metricRevenue) metricRevenue.textContent = "—";
+        setPanelError("Não foi possível carregar métricas (vendas/arrecadado).");
+      }
+    );
   }
 
   function openModal(mode = "create") {
@@ -567,6 +619,7 @@ if (isProductsPage) {
   // Logout
   btnLogout?.addEventListener("click", async () => {
     unsubscribePage();
+    unsubscribeMetrics();
     await signOut(auth);
     window.location.href = "./login.html";
   });
@@ -589,6 +642,7 @@ if (isProductsPage) {
     metricRevenue.textContent = "—";
 
     await refreshActiveCount();
+    subscribeSalesMetrics();
 
     resetToPage1();
     subscribePage();
