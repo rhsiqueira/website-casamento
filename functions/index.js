@@ -1,3 +1,5 @@
+// C:\Users\sique\OneDrive\Área de Trabalho\gr\functions\index.js
+
 const { setGlobalOptions } = require("firebase-functions/v2");
 const { onRequest } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
@@ -143,11 +145,18 @@ exports.createPreference = onRequest({ secrets: [MP_TOKEN] }, async (req, res) =
   // =================
 
   try {
-    const { productId } = req.body || {};
+    const { productId, giverName } = req.body || {};
 
     if (!productId) {
       return res.status(400).json({ error: "productId obrigatório" });
     }
+
+    // ✅ novo: valida giverName (obrigatório, trim, limite)
+    const cleanGiverName = String(giverName ?? "").trim();
+    if (!cleanGiverName) {
+      return res.status(400).json({ error: "giverName obrigatório" });
+    }
+    const giverNameLimited = cleanGiverName.slice(0, 120);
 
     const productRef = db.collection("products").doc(productId);
     const productSnap = await productRef.get();
@@ -166,12 +175,13 @@ exports.createPreference = onRequest({ secrets: [MP_TOKEN] }, async (req, res) =
       return res.status(400).json({ error: "Produto sem estoque" });
     }
 
-    // cria pedido pendente
+    // cria pedido pendente (✅ agora salva giverName)
     const orderRef = await db.collection("orders").add({
       productId,
       title: product.title,
       priceCents: Number(product.priceCents),
       status: "pending",
+      giverName: giverNameLimited,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
@@ -303,7 +313,10 @@ exports.mercadoPagoWebhook = onRequest(
         .digest("hex");
 
       if (expected !== v1) {
-        console.error("Webhook signature invalid (ignored):", JSON.stringify({ paymentId, topic: req.body?.type }));
+        console.error(
+          "Webhook signature invalid (ignored):",
+          JSON.stringify({ paymentId, topic: req.body?.type })
+        );
         return res.status(200).send("Assinatura inválida (ignorado)");
       }
 
@@ -335,7 +348,9 @@ exports.mercadoPagoWebhook = onRequest(
         mpStatus: String(paymentData.status || "approved"),
       });
 
-      return res.status(200).send(result.ok ? "Pagamento processado" : "Pagamento não processado");
+      return res
+        .status(200)
+        .send(result.ok ? "Pagamento processado" : "Pagamento não processado");
     } catch (error) {
       const safe = {
         name: String(error?.name || ""),
