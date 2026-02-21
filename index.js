@@ -148,7 +148,7 @@ const presentesMoreBtn = document.getElementById("presentes-more");
 const presentesSort = document.getElementById("presentes-sort");
 
 // ============================
-// MODAL - PRESENTEAR (novo)
+// MODAL - PRESENTEAR
 // ============================
 
 const giftModalOverlay = document.getElementById("gift-modal-overlay");
@@ -282,9 +282,13 @@ giftModalClose?.addEventListener("click", closeGiftModal);
 giftModalCancel?.addEventListener("click", closeGiftModal);
 giftModalOverlay?.addEventListener("click", closeGiftModal);
 
+// ============================
+// LISTENER GLOBAL ESC
+// (menu + modal)
+// ============================
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    // fecha o menu (se estiver aberto) e também o modal (se estiver aberto)
     closeMenu();
 
     if (giftModal && !giftModal.hidden) {
@@ -293,7 +297,10 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// Submit do modal (continuar)
+// ============================
+// SUBMIT DO MODAL (CONTINUAR)
+// ============================
+
 giftModalForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -338,8 +345,8 @@ giftModalForm?.addEventListener("submit", async (e) => {
     const data = await resp.json().catch(() => ({}));
 
     if (!resp.ok) {
-      // mantém modal aberto para correção/novo submit
       setGiftModalError(data?.error || "Erro ao iniciar pagamento.");
+
       if (confirmBtn) {
         confirmBtn.disabled = false;
         confirmBtn.textContent = "Continuar";
@@ -356,6 +363,7 @@ giftModalForm?.addEventListener("submit", async (e) => {
 
     if (!data?.init_point) {
       setGiftModalError("Checkout não retornou o link de pagamento (init_point).");
+
       if (confirmBtn) {
         confirmBtn.disabled = false;
         confirmBtn.textContent = "Continuar";
@@ -429,7 +437,7 @@ function createCard(product) {
   btn.type = "button";
   btn.textContent = "Presentear";
 
-  // ✅ agora: abre modal para coletar nome antes de chamar backend
+  // ✅ abre modal para coletar nome antes de chamar backend
   btn.addEventListener("click", () => {
     openGiftModal({ productId: product.id, triggerBtn: btn });
   });
@@ -525,7 +533,6 @@ async function fetchNextPage(requestSize) {
     const toRender = consumePending(requestSize);
 
     if (!toRender.length) {
-      // Não encontrou mais itens válidos (ativos + estoque) após tentar buscar
       hasMore = false;
       setMoreEnabled(false);
       return;
