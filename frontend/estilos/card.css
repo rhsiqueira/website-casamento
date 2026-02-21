@@ -183,30 +183,85 @@
    MOBILE PRESENTES
 ========================= */
 
+/* =========================
+   MOBILE – PRESENTES AJUSTADO
+========================= */
+
 @media (max-width: 768px) {
+
+  .presentes {
+    padding: 0 20px;
+  }
 
   .presentes-header {
     grid-template-columns: 1fr;
-    gap: 12px;
     text-align: center;
+    gap: 10px;
   }
 
   .presentes-filter {
     justify-self: center;
   }
 
-  .presentes-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .presentes-header-spacer {
+    display: none;
   }
 
-  .presente-card {
-    width: 90%;
-    height: auto;
+  /* GRID */
+
+  .presentes-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    margin-top: 24px;
   }
+
+  /* CARD */
+
+  .presente-card {
+    width: 92%;
+    max-width: 340px;
+    height: auto;
+    padding-bottom: 18px;
+  }
+
+  /* IMAGEM */
+
+  .presente-card-img {
+    height: 160px;
+  }
+
+  .presente-card-img img {
+    max-height: 140px;
+  }
+
+  /* TÍTULO */
 
   .presente-card-title {
     width: 90%;
+    height: auto;
+    font-size: 16px;
+    margin-top: 10px;
   }
 
+  /* PREÇO */
+
+  .presente-card-price {
+    font-size: 18px;
+    margin-top: 6px;
+  }
+
+  /* BOTÃO */
+
+  .presente-card-btn {
+    width: 150px;
+    height: 38px;
+    font-size: 15px;
+    margin-top: 12px;
+  }
+
+  .presentes-more {
+    margin-top: 32px;
+  }
 }
