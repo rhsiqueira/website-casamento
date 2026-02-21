@@ -1,0 +1,188 @@
+/* C:\Users\sique\OneDrive\Área de Trabalho\gr\frontend\estilos\failure.css */
+
+/* Base */
+:root {
+  --fuchsia: #FF0080;
+  --ink: #141414;
+  --muted: #434343;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --ring: rgba(255, 0, 128, 0.18);
+  --danger: #b00020;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: var(--ink);
+}
+
+/* Fundo */
+.status-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(1100px 600px at 15% 10%, rgba(255, 0, 128, 0.40), transparent 60%),
+    radial-gradient(900px 520px at 85% 25%, rgba(255, 255, 255, 0.35), transparent 60%),
+    radial-gradient(900px 560px at 70% 90%, rgba(255, 0, 128, 0.25), transparent 60%),
+    linear-gradient(135deg, #120014 0%, #2a001a 35%, #3a0024 65%, #120014 100%);
+}
+
+.status-page::before,
+.status-page::after {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  pointer-events: none;
+}
+
+.status-page::before {
+  background:
+    radial-gradient(closest-side, rgba(255, 0, 128, 0.20), transparent 75%) 0 0/220px 220px;
+  filter: blur(0.2px);
+  opacity: 0.55;
+}
+
+.status-page::after {
+  background: radial-gradient(700px 420px at 50% 50%, rgba(255,255,255,0.14), transparent 70%);
+  opacity: 0.65;
+}
+
+/* Card central */
+.card {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 22px 20px 18px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Marca (tamanho fixo desktop + mobile) */
+.brand {
+  font-family: "Peddana", serif;
+  font-weight: 400;
+  font-size: 56px; /* fixo igual em todos os tamanhos */
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+/* Ícone */
+.icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  margin: 0 auto 12px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(176, 0, 32, 0.10);
+  border: 1px solid rgba(176, 0, 32, 0.28);
+  color: var(--danger);
+  font-size: 38px;
+  font-weight: 700;
+}
+
+/* Tipografia */
+.title {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--ink);
+}
+
+.subtitle {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.hint {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #5a5a5a;
+}
+
+.hint strong {
+  color: var(--ink);
+}
+
+/* Botão */
+.btn {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+
+  background: var(--ink);
+  color: #ffffff;
+  border: 1px solid var(--ink);
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.btn:hover {
+  opacity: 0.95;
+}
+
+.btn:active {
+  transform: scale(0.99);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+/* Responsivo */
+@media (max-width: 640px) {
+  .status-page {
+    padding: 18px;
+  }
+
+  .card {
+    max-width: 420px;
+    padding: 20px 16px 16px;
+    border-radius: 16px;
+  }
+
+  /* Marca permanece no MESMO tamanho */
+  .brand {
+    font-size: 56px;
+  }
+
+  .icon {
+    width: 66px;
+    height: 66px;
+    border-radius: 16px;
+    font-size: 36px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+}
