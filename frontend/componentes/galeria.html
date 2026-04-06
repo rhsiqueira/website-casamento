@@ -1,0 +1,94 @@
+<section id="galeria" class="galeria" aria-label="Galeria de fotos do ensaio">
+    <div class="galeria-container">
+        <div class="galeria-header">
+            <div class="galeria-header-texto">
+                <h2 class="galeria-title">Nosso Ensaio</h2>
+                <p class="galeria-subtitle">
+                    Alguns registros especiais desse capítulo tão importante da nossa história.
+                </p>
+            </div>
+
+            <div class="galeria-paginacao" aria-label="Navegação da galeria">
+                <button
+                    id="galeria-prev"
+                    class="galeria-nav-btn"
+                    type="button"
+                    aria-label="Página anterior"
+                >
+                    ‹
+                </button>
+
+                <p id="galeria-page-indicator" class="galeria-page-indicator" aria-live="polite">
+                    Página 1 de 1
+                </p>
+
+                <button
+                    id="galeria-next"
+                    class="galeria-nav-btn"
+                    type="button"
+                    aria-label="Próxima página"
+                >
+                    ›
+                </button>
+            </div>
+        </div>
+
+        <div
+            id="galeria-grid"
+            class="galeria-grid"
+            aria-label="Lista de fotos do ensaio"
+        >
+            <!-- preenchido via JS -->
+        </div>
+    </div>
+</section>
+
+<div id="galeria-modal-overlay" class="galeria-modal-overlay" hidden></div>
+
+<div
+    id="galeria-modal"
+    class="galeria-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-label="Foto ampliada da galeria"
+    hidden
+>
+    <div class="galeria-modal-content" role="document">
+        <button
+            id="galeria-modal-close"
+            class="galeria-modal-close"
+            type="button"
+            aria-label="Fechar foto"
+        >
+            ×
+        </button>
+
+        <button
+            id="galeria-modal-prev"
+            class="galeria-modal-nav galeria-modal-nav-prev"
+            type="button"
+            aria-label="Foto anterior"
+        >
+            ‹
+        </button>
+
+        <figure class="galeria-modal-figure">
+            <img
+                id="galeria-modal-image"
+                class="galeria-modal-image"
+                src=""
+                alt=""
+            />
+        </figure>
+
+        <button
+            id="galeria-modal-next"
+            class="galeria-modal-nav galeria-modal-nav-next"
+            type="button"
+            aria-label="Próxima foto"
+        >
+            ›
+        </button>
+    </div>
+</div>
